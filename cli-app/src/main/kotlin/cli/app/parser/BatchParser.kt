@@ -3,6 +3,11 @@ package cli.app.parser
 import cli.app.model.BatchRange
 import cli.app.model.error.BatchParsingException
 
+fun processBatches(lines: List<String>) {
+    val batchRanges = getBatchRanges(lines)
+
+}
+
 fun getBatchRanges(lines: List<String>): List<BatchRange> {
     // Start at the second line since the first line should be a file header
     var lineIndex = 1
@@ -31,6 +36,10 @@ fun getBatchRanges(lines: List<String>): List<BatchRange> {
     if (inBatch) throw BatchParsingException("Found batch header without batch control on line $currentBatchStart")
 
     return batches
+}
+
+fun processLinesInRange(batchRange: BatchRange) {
+
 }
 
 fun isBatchHeader(line: String) = line.first() == '5'
