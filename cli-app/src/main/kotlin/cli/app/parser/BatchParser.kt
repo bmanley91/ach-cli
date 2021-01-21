@@ -1,11 +1,15 @@
 package cli.app.parser
 
+import cli.app.model.Batch
 import cli.app.model.BatchRange
 import cli.app.model.error.BatchParsingException
+import cli.app.transform.getBatchForRange
 
 fun processBatches(lines: List<String>) {
     val batchRanges = getBatchRanges(lines)
-
+    batchRanges.map {
+        processLinesInRange(lines, it)
+    }
 }
 
 fun getBatchRanges(lines: List<String>): List<BatchRange> {
@@ -38,8 +42,11 @@ fun getBatchRanges(lines: List<String>): List<BatchRange> {
     return batches
 }
 
-fun processLinesInRange(batchRange: BatchRange) {
-
+fun processLinesInRange(lines: List<String>, batchRange: BatchRange): List<Batch> {
+    batchRange.map {
+        validateBatch(lines, it)
+        getBatchForRange(it)
+    }
 }
 
 fun isBatchHeader(line: String) = line.first() == '5'

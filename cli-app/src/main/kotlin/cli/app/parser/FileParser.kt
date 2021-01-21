@@ -17,7 +17,7 @@ fun processFile(fileName: String) {
     val header = parseFileHeader(lines.first())
     println(header)
 
-
+    processBatches(lines)
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()
