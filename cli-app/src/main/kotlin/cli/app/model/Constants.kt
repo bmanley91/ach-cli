@@ -1,3 +1,3 @@
 package cli.app.model
 
-const val DATE_TIME_FORMAT = "yyMMdd"
+const val STANDARD_DATE_TIME_FORMAT = "yyMMdd"
