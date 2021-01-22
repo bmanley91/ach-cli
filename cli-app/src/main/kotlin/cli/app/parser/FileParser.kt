@@ -3,6 +3,7 @@ package cli.app.parser
 import cli.app.model.FailureReason
 import cli.app.model.FileHeader
 import cli.app.transform.lineToFileHeader
+import cli.app.util.isFileControlLine
 import cli.app.validateFile
 import cli.app.validation.validateFileHeader
 import java.io.File
@@ -19,6 +20,11 @@ fun processFile(fileName: String) {
 
     val batches = processBatches(lines)
     println(batches)
+
+    val fileControl = parseFileControlLine(lines.first {
+        isFileControlLine(it)
+    })
+    println(fileControl)
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()
