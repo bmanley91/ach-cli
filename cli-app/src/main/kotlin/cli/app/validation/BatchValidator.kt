@@ -5,6 +5,7 @@ import cli.app.model.FailureReason
 
 fun validateBatch(lines: List<String>, batchRange: BatchRange): List<FailureReason> {
     val failureReasons = mutableListOf<FailureReason>()
+
     failureReasons.addAll(
         validateBatchHeader(lines[batchRange.startIndex])
     )
@@ -19,13 +20,13 @@ fun validateBatch(lines: List<String>, batchRange: BatchRange): List<FailureReas
 }
 
 fun validateBatchHeader(line: String): List<FailureReason> {
-    TODO()
+    return listOf<FailureReason>()
 }
 
 fun validateBatchDetailRows(lines: List<String>, start: Int, end: Int): List<FailureReason> {
-    TODO()
+    return listOf<FailureReason>()
 }
 
 fun validateBatchControlRow(line: String): List<FailureReason> {
-    TODO()
+    return listOf<FailureReason>()
 }

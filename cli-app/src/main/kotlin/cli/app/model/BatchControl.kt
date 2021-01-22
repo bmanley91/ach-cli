@@ -8,8 +8,8 @@ data class BatchControl (
     val totalDebitAmount: Int,
     val totalCreditAmount: Int,
     val companyIdentification: String,
-    val messageAuthenticationCode: String,
-    val reserved: String,
+    val messageAuthenticationCode: String?,
+    val reserved: String?,
     val odfiIdentification: String,
     val batchNumber: Int
 )

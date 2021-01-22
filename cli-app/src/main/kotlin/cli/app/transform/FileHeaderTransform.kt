@@ -1,11 +1,7 @@
 package cli.app.transform
 
-import cli.app.model.DATE_TIME_FORMAT
 import cli.app.model.FileHeader
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
-
-private val dateTimeFormatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT)
+import cli.app.util.dateFromStandardFormat
 
 fun lineToFileHeader(line: String): FileHeader {
     val rawFileCreationDate = line.subSequence(23,29).toString()
@@ -20,7 +16,7 @@ fun lineToFileHeader(line: String): FileHeader {
         immediateDestination = line.subSequence(3,13).trim().toString(),
         // Char 13 is skipped on purpose
         immediateOrigin = line.subSequence(14,23).toString(),
-        fileCreationDate = LocalDate.parse(rawFileCreationDate, dateTimeFormatter),
+        fileCreationDate = dateFromStandardFormat(rawFileCreationDate),
         fileCreationTime = line.subSequence(29, 33).toString(),
         fileIdModifier = line.subSequence(33,34).toString(),
         recordSize = rawRecordSize.toInt(),

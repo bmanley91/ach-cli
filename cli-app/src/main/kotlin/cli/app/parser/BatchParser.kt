@@ -4,10 +4,14 @@ import cli.app.model.Batch
 import cli.app.model.BatchRange
 import cli.app.model.error.BatchParsingException
 import cli.app.transform.getBatchForRange
+import cli.app.util.isBatchControl
+import cli.app.util.isBatchHeader
+import cli.app.util.isFileControlLine
+import cli.app.validation.validateBatch
 
-fun processBatches(lines: List<String>) {
+fun processBatches(lines: List<String>): List<Batch> {
     val batchRanges = getBatchRanges(lines)
-    batchRanges.map {
+    return batchRanges.map {
         processLinesInRange(lines, it)
     }
 }
@@ -42,13 +46,8 @@ fun getBatchRanges(lines: List<String>): List<BatchRange> {
     return batches
 }
 
-fun processLinesInRange(lines: List<String>, batchRange: BatchRange): List<Batch> {
-    batchRange.map {
-        validateBatch(lines, it)
-        getBatchForRange(it)
-    }
-}
+fun processLinesInRange(lines: List<String>, batchRange: BatchRange): Batch {
+//    validateBatch(lines, batchRange)
+    return getBatchForRange(lines, batchRange)
 
-fun isBatchHeader(line: String) = line.first() == '5'
-fun isBatchControl(line: String) = line.first() == '8'
-fun isFileControlLine(line: String) = line.first() == '9'
+}

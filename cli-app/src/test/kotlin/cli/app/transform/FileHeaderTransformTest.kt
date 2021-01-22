@@ -1,6 +1,6 @@
 package cli.app.transform
 
-import cli.app.model.DATE_TIME_FORMAT
+import cli.app.model.STANDARD_DATE_TIME_FORMAT
 import org.assertj.core.api.Assertions.assertThat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -17,7 +17,7 @@ class FileHeaderTransformTest {
         assertThat(parsedFileHeader.immediateDestination).isEqualTo("987654321")
         assertThat(parsedFileHeader.immediateOrigin).isEqualTo("012345678")
         assertThat(parsedFileHeader.fileCreationDate).isEqualTo(
-            LocalDate.parse("210114", DateTimeFormatter.ofPattern(DATE_TIME_FORMAT))
+            LocalDate.parse("210114", DateTimeFormatter.ofPattern(STANDARD_DATE_TIME_FORMAT))
         )
         assertThat(parsedFileHeader.fileIdModifier).isEqualTo("A")
         assertThat(parsedFileHeader.recordSize).isEqualTo(94)

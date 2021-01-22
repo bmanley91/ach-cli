@@ -14,10 +14,11 @@ fun processFile(fileName: String) {
         failProcessing(validationFailures)
     }
 
-    val header = parseFileHeader(lines.first())
-    println(header)
+    val fileHeader = parseFileHeader(lines.first())
+    println(fileHeader)
 
-    processBatches(lines)
+    val batches = processBatches(lines)
+    println(batches)
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()

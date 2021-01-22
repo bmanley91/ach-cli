@@ -6,7 +6,7 @@ data class BatchHeader (
     val recordTypeCode: String,
     val serviceCode: String,
     val companyName: String,
-    val companyDiscretionaryData: String,
+    val companyDiscretionaryData: String?,
     val companyIdentification: String,
     val standardEntryClassCode: String,
     val companyEntryDescription: String,
