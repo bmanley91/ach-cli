@@ -77,10 +77,10 @@ fun lineToBatchDetail(line: String): BatchDetailRow {
         transactionCode = line.substring(1,3),
         rdfiIdentification = line.substring(3,11),
         checkDigit = line.substring(11,12),
-        dfiAccountNumber = line.substring(12,29),
+        dfiAccountNumber = line.substring(12,29).trim(),
         amount = line.substring(29,39).trim().toInt(),
-        individualIdentificationNumber = line.substring(39,54),
-        individualName = line.substring(54,76),
+        individualIdentificationNumber = line.substring(39,54).trim(),
+        individualName = line.substring(54,76).trim(),
         discretionaryData = line.substring(76,78),
         addendaRecordIndicator = line.substring(78,79),
         traceNumber = line.substring(79,94)

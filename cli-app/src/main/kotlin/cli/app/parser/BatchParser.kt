@@ -47,7 +47,7 @@ fun getBatchRanges(lines: List<String>): List<BatchRange> {
 }
 
 fun processLinesInRange(lines: List<String>, batchRange: BatchRange): Batch {
-//    validateBatch(lines, batchRange)
+    validateBatch(lines, batchRange)
     return getBatchForRange(lines, batchRange)
 
 }

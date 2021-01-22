@@ -19,6 +19,7 @@ fun validateBatch(lines: List<String>, batchRange: BatchRange): List<FailureReas
     return failureReasons
 }
 
+// TODO: Fill out validation logic
 fun validateBatchHeader(line: String): List<FailureReason> {
     return listOf<FailureReason>()
 }
