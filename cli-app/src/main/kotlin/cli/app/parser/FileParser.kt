@@ -9,7 +9,7 @@ import cli.app.validateFile
 import cli.app.validation.validateFileHeader
 import java.io.File
 
-fun processFile(fileName: String) {
+fun processFile(fileName: String, batchLinesEnabled: Boolean) {
     val lines = readFile(fileName)
     val validationFailures = validateFile(lines)
     if (validationFailures.isNotEmpty()) {
@@ -24,7 +24,7 @@ fun processFile(fileName: String) {
         isFileControlLine(it)
     })
 
-    generateReport(fileHeader, batches, fileControl)
+    generateReport(fileHeader, batches, fileControl, batchLinesEnabled)
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()

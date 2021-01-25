@@ -5,11 +5,11 @@ import cli.app.model.FileControl
 import cli.app.model.FileHeader
 import cli.app.util.convertCentsToDollars
 
-fun generateReport(fileHeader: FileHeader, batches: List<Batch>, fileControl: FileControl)  {
+fun generateReport(fileHeader: FileHeader, batches: List<Batch>, fileControl: FileControl, batchLinesEnabled: Boolean)  {
     val messageStrings = mutableListOf<String>()
     messageStrings.add(generateFileHeaderReport(fileHeader))
     messageStrings.add(generateFileControlReport(fileControl))
-    messageStrings.add(generateBatchReport(batches, true))
+    messageStrings.add(generateBatchReport(batches, batchLinesEnabled))
 
     val report = aggregateReports(messageStrings)
     println(report)
@@ -41,7 +41,7 @@ private fun generateFileControlReport(fileControl: FileControl): String {
     }
 }
 
-private fun generateBatchReport(batches: List<Batch>, batchLinesEnabled: Boolean = false): String {
+private fun generateBatchReport(batches: List<Batch>, batchLinesEnabled: Boolean): String {
     val batchSummaries: List<String> = batches.map {
         val builder = StringBuilder()
         builder.appendLine(
