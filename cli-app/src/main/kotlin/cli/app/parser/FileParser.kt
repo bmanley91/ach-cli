@@ -2,6 +2,7 @@ package cli.app.parser
 
 import cli.app.model.FailureReason
 import cli.app.model.FileHeader
+import cli.app.transform.generateReport
 import cli.app.transform.lineToFileHeader
 import cli.app.util.isFileControlLine
 import cli.app.validateFile
@@ -16,15 +17,14 @@ fun processFile(fileName: String) {
     }
 
     val fileHeader = parseFileHeader(lines.first())
-    println(fileHeader)
 
     val batches = processBatches(lines)
-    println(batches)
 
     val fileControl = parseFileControlLine(lines.first {
         isFileControlLine(it)
     })
-    println(fileControl)
+
+    generateReport(fileHeader, batches, fileControl)
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()
