@@ -6,15 +6,16 @@ import cli.app.model.FileHeader
 import cli.app.util.convertCentsToDollars
 
 fun generateReport(fileHeader: FileHeader, batches: List<Batch>, fileControl: FileControl)  {
-    val headerReport = generateFileHeaderReport(fileHeader)
-    val batchReport = generateBatchReport(batches)
-    val fileControlReport = generateFileControlReport(fileControl)
+    val messageStrings = mutableListOf<String>()
+    messageStrings.add(generateFileHeaderReport(fileHeader))
+    messageStrings.add(generateFileControlReport(fileControl))
+    messageStrings.add(generateBatchReport(batches, true))
 
-    val reports = aggregateReports(headerReport, batchReport, fileControlReport)
-    println(reports)
+    val report = aggregateReports(messageStrings)
+    println(report)
 }
 
-fun generateFileHeaderReport(fileHeader: FileHeader): String {
+private fun generateFileHeaderReport(fileHeader: FileHeader): String {
     return with (fileHeader) {
         """
             File Information
@@ -26,15 +27,7 @@ fun generateFileHeaderReport(fileHeader: FileHeader): String {
     }
 }
 
-fun generateBatchReport(batches: List<Batch>): String {
-    return """
-        Batch Information
-        -------------------
-        foo!
-    """.trimIndent()
-}
-
-fun generateFileControlReport(fileControl: FileControl): String {
+private fun generateFileControlReport(fileControl: FileControl): String {
     return with (fileControl) {
         """
             File Control Information
@@ -48,11 +41,59 @@ fun generateFileControlReport(fileControl: FileControl): String {
     }
 }
 
-fun aggregateReports(headerReport: String, batchReport: String, controlReport: String): String =
-    StringBuilder()
-        .appendLine(headerReport)
-        .append('\n')
-        .appendLine(batchReport)
-        .append('\n')
-        .appendLine(controlReport)
-        .toString()
+private fun generateBatchReport(batches: List<Batch>, batchLinesEnabled: Boolean = false): String {
+    val batchSummaries: List<String> = batches.map {
+        val builder = StringBuilder()
+        builder.appendLine(
+            """
+                Batch Number ${it.batchHeader.batchNumber} Summary
+                -------------------
+                Credits or Debits? ${headerServiceCodeToMessage(it.batchHeader)}
+                Personal or Business? ${headerStandardEntryClassCodeToMessage(it.batchHeader)}
+                Company: ${it.batchHeader.companyName} (${it.batchHeader.companyIdentification})
+                Description: ${it.batchHeader.companyEntryDescription}
+                Company Discretionary Data: ${it.batchHeader.companyDiscretionaryData}
+                Company Descriptive Date: ${it.batchHeader.companyDescriptiveDate}
+                Effective Entry Date: ${it.batchHeader.effectiveEntryDate}
+                Settlement Date: ${it.batchHeader.settlementDate}
+                Entry Count: ${it.batchControl.entryCount}
+                Credit Total: ${it.batchControl.totalCreditAmount}
+                Debit Total: ${it.batchControl.totalDebitAmount}
+            """.trimIndent()
+        )
+
+        if (batchLinesEnabled) builder.append('\n')
+            .appendLine(generateBatchLineReport(it))
+
+        builder.toString()
+    }
+
+    return aggregateReports(batchSummaries)
+}
+
+private fun generateBatchLineReport(batch: Batch): String {
+    val batchLineReports = batch.batchDetailRows.mapIndexed { index, detailRow ->
+        """
+            Batch ${batch.batchHeader.batchNumber}, Entry $index
+            -------------------
+            Transaction Code: ${detailRow.transactionCode}
+            Amount: ${detailRow.amount}
+            RDFI Routing Number: ${detailRow.rdfiIdentification}${detailRow.checkDigit}
+            DFI Account Number: ${detailRow.dfiAccountNumber}
+            Individual: ${detailRow.individualName} (${detailRow.individualIdentificationNumber})
+            Trace Number: ${detailRow.traceNumber}
+        """.trimIndent()
+    }
+
+    return aggregateReports(batchLineReports)
+}
+
+private fun aggregateReports(reports: List<String>): String {
+    val builder = StringBuilder()
+    reports.forEach {
+        builder.appendLine(it)
+            .append('\n')
+    }
+
+    return builder.toString()
+}
