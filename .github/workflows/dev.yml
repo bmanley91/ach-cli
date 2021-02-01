@@ -30,3 +30,4 @@ jobs:
         with:
           artifacts: 'build-${{github.run_number}}.zip'
           token: ${{ secrets.PUBLISH_TOKEN }}
+          tag: v0.0.${{github.run_number}}
