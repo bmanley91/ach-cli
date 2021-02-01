@@ -39,9 +39,9 @@ class BatchParserTest {
         val batchRanges = getBatchRanges(validLines)
 
         assertThat(batchRanges).containsExactlyElementsOf(listOf(
-            BatchRange(1, 6),
-            BatchRange(7, 9),
-            BatchRange(10, 12)
+            BatchRange(1, 4),
+            BatchRange(5, 7),
+            BatchRange(8, 10)
         ))
     }
 

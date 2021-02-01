@@ -10,15 +10,13 @@ import kotlinx.cli.default
 
 fun main(args: Array<String>) {
     val parser = ArgParser("${App.appName}:: ${App.version}")
-    val version by parser.option(ArgType.Boolean, shortName = "v", description = "Version").default(false)
+    val batchLinesEnabled by parser.option(ArgType.Boolean, shortName = "v", description = "verbose").default(false)
     val file by parser.option(ArgType.String, shortName = "f", description = "File")
 
     parser.parse(args);
 
-    if (version) println(App.version)
-
     if (file != null) {
-        processFile(file!!)
+        processFile(file!!, batchLinesEnabled)
     } else {
         println("A File argument ('-f') is required to run this script")
     }

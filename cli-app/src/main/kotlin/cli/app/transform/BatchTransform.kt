@@ -86,3 +86,11 @@ fun lineToBatchDetail(line: String): BatchDetailRow {
         traceNumber = line.substring(79,94)
     )
 }
+
+fun headerServiceCodeToMessage(header: BatchHeader): String =
+    if (header.serviceCode == "220") "Credits"
+    else "Debits"
+
+fun headerStandardEntryClassCodeToMessage(header: BatchHeader): String =
+    if (header.serviceCode == "PPD") "Personal"
+    else "Business"

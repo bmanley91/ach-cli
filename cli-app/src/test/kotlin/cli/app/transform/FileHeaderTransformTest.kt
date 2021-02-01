@@ -7,7 +7,8 @@ import java.time.format.DateTimeFormatter
 import kotlin.test.Test
 
 class FileHeaderTransformTest {
-    @Test fun `should parse a file header`() {
+    @Test
+    fun `should parse a file header`() {
         val line = "101 987654321 0123456782101141557A094101FooBar FEDERAL BANK    MyBank                  ABC123 "
 
         val parsedFileHeader = lineToFileHeader(line)
@@ -28,7 +29,8 @@ class FileHeaderTransformTest {
         assertThat(parsedFileHeader.referenceCode).isEqualTo("ABC123")
     }
 
-    @Test fun `should have null reference code when appropriate column is empty`() {
+    @Test
+    fun `should have null reference code when appropriate column is empty`() {
         val line = "101 987654321 0123456782101141557A094101FooBar FEDERAL BANK    MyBank                         "
 
         val parsedFileHeader = lineToFileHeader(line)
