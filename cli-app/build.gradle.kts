@@ -12,6 +12,8 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application in Java.
     application
+
+    jacoco
 }
 
 repositories {
@@ -56,4 +58,9 @@ val jar by tasks.getting(Jar::class) {
     }) {
         exclude("META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA")
     }
+}
+
+jacoco {
+    // You may modify the Jacoco version here
+    toolVersion = "0.8.2"
 }

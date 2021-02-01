@@ -5,14 +5,14 @@ import cli.app.model.FileControl
 import cli.app.model.FileHeader
 import cli.app.util.convertCentsToDollars
 
-fun generateReport(fileHeader: FileHeader, batches: List<Batch>, fileControl: FileControl, batchLinesEnabled: Boolean)  {
+fun generateReport(fileHeader: FileHeader, batches: List<Batch>, fileControl: FileControl, batchLinesEnabled:
+Boolean): String {
     val messageStrings = mutableListOf<String>()
     messageStrings.add(generateFileHeaderReport(fileHeader))
     messageStrings.add(generateFileControlReport(fileControl))
     messageStrings.add(generateBatchReport(batches, batchLinesEnabled))
 
-    val report = aggregateReports(messageStrings)
-    println(report)
+    return aggregateReports(messageStrings)
 }
 
 private fun generateFileHeaderReport(fileHeader: FileHeader): String {
@@ -57,8 +57,8 @@ private fun generateBatchReport(batches: List<Batch>, batchLinesEnabled: Boolean
                 Effective Entry Date: ${it.batchHeader.effectiveEntryDate}
                 Settlement Date: ${it.batchHeader.settlementDate}
                 Entry Count: ${it.batchControl.entryCount}
-                Credit Total: ${it.batchControl.totalCreditAmount}
-                Debit Total: ${it.batchControl.totalDebitAmount}
+                Credit Total: $${convertCentsToDollars(it.batchControl.totalCreditAmount)}
+                Debit Total: $${convertCentsToDollars(it.batchControl.totalDebitAmount)}
             """.trimIndent()
         )
 

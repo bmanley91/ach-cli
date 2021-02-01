@@ -24,7 +24,9 @@ fun processFile(fileName: String, batchLinesEnabled: Boolean) {
         isFileControlLine(it)
     })
 
-    generateReport(fileHeader, batches, fileControl, batchLinesEnabled)
+    println(
+        generateReport(fileHeader, batches, fileControl, batchLinesEnabled)
+    )
 }
 
 fun readFile(fileName: String): List<String> = File(fileName).readLines()
