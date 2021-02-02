@@ -28,6 +28,6 @@ jobs:
       - name: Publish
         uses: ncipollo/release-action@v1
         with:
-          artifacts: 'build-${{github.run_number}}.zip'
+          artifacts: 'ach-cli-build-${{github.run_number}}.zip'
           token: ${{ secrets.PUBLISH_TOKEN }}
-          tag: Build
+          tag: Build-${{github.run_number}}
