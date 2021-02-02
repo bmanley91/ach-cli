@@ -22,7 +22,7 @@ jobs:
       - name: Create Archive
         uses: thedoctor0/zip-release@master
         with:
-          filename: 'build-${{github.run_number}}.zip'
+          filename: 'ach-cli-build-${{github.run_number}}.zip'
           path: 'dist'
           type: 'zip'
       - name: Publish
