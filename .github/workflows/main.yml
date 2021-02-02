@@ -24,6 +24,7 @@ jobs:
         with:
           filename: 'release-${{github.run_number}}.zip'
           path: 'dist'
+          directory: 'dist'
           type: 'zip'
       - name: Publish
         uses: ncipollo/release-action@v1
