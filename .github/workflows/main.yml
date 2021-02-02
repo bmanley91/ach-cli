@@ -23,7 +23,6 @@ jobs:
         uses: thedoctor0/zip-release@master
         with:
           filename: 'release-${{github.run_number}}.zip'
-          path: 'dist'
           directory: 'dist'
           type: 'zip'
       - name: Publish
